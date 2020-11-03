@@ -1,0 +1,20 @@
+dist:
+- xenial
+
+language: java
+jdk:
+- openjdk8
+- openjdk10
+- openjdk11
+- oraclejdk8
+- oraclejdk11
+
+# prevent travis running gradle assemble; let the build script do it anyway
+install: true
+
+script:
+- ./gradlew localDistro
+- ./gradlew assemble
+- ./gradlew :distribution:archives:linux-tar:assemble
+- ./gradlew :distribution:archives:darwin-tar:assemble
+- ./gradlew :distribution:archives:windows-zip:assemble
